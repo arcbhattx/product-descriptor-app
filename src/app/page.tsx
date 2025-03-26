@@ -1,5 +1,6 @@
+'use client'
+
 import Image from "next/image";
-import {Menubar}from "@/components/ui/menubar";
 import {
   Card,
   CardContent,
@@ -10,7 +11,20 @@ import {
 } from "@/components/ui/card"
 
 import {Button} from "@/components/ui/button";
+import {useRouter} from 'next/navigation';
+
+
+
 export default function Home() {
+
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    router.push('/home');
+  };
+
+
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center space-y-4">
       <Card className="w-[350px] ">
@@ -21,7 +35,7 @@ export default function Home() {
     </Card>
 
     <div className="p-4"> 
-      <Button> Get Started</Button>
+      <Button onClick={handleNavigation}> Get Started</Button>
     </div>
     </div>
 
