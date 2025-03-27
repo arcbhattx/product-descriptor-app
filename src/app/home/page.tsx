@@ -11,6 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import {z} from "zod"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+
 import {
     Command,
     CommandEmpty,
@@ -56,12 +59,24 @@ export default function MainPage(){
         <div className="flex flex-col space-x-4">
 
         <div className="relative">
+
+            <div className="absolute top-4 right-20 ">
+
+            <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+
+            </div>
+
             <div className="absolute top-4 right-4">
                 <Button onClick={handleNavigation}>
                 <LogOut />
                 </Button>
             </div>
         </div>
+
+        
 
           <div className="flex flex-row items-center justify-center space-x-4 gap-4 mt-20">
             <Card className="w-[500px] h-[500px]"> 

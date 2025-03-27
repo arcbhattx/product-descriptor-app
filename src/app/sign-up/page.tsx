@@ -18,7 +18,7 @@ export default function signUp(){
 
   return (
     <div className="flex flex-col items-center justify-center space-x-4 gap-4 mt-20">
-      <Card className="h-[500px] w-[400px]">
+      <Card className="flex flex-col gap-5 h-[500px] w-[400px]">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Sign Up</CardTitle>
           <CardDescription>

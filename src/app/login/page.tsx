@@ -17,7 +17,7 @@ export default function LoginForm(){
 
   return (
     <div className="flex flex-col items-center justify-center space-x-4 gap-4 mt-20">
-      <Card className="h-[500px] w-[400px]">
+      <Card className="flex flex-col gap-5 h-[500px] w-[400px]">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Log In</CardTitle>
           <CardDescription>
@@ -93,15 +93,6 @@ export default function LoginForm(){
                   Login
                 </Button>
               </div>
-
-
-              <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
-                  Sign up
-                </a>
-              </div>
-
             </div>
           </form>
         </CardContent>
