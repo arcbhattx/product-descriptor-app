@@ -1,5 +1,5 @@
 'use client'
-
+import * as React from "react"
 import {  LogOut  } from "lucide-react"
 import {useRouter} from 'next/navigation';
 import {Button} from "@/components/ui/button";
@@ -11,16 +11,33 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import {z} from "zod"
 
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+  } from "@/components/ui/command"
+
+  import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "@/components/ui/popover"
 
 
 export default function MainPage(){
 
     const router = useRouter();
+    
+    const [open, setOpen] = React.useState(false);
+
 
     const productForm = useForm({
         defaultValues:{
             product_name: "",
-            tags: "",
+            tags: [],
             description: "",
         }
     });
@@ -104,13 +121,6 @@ export default function MainPage(){
                     </form>  
                    </Form>
                 </CardContent>
-            </Card>
-            <Card className="w-[500px] h-[500px]"> 
-                <CardHeader>
-                    <CardTitle>
-                        Card2
-                    </CardTitle>
-                </CardHeader>
             </Card>
           </div>
       
