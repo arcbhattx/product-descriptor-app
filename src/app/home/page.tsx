@@ -14,6 +14,7 @@ import {z} from "zod"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 import {auth} from "../../../firebase/clientApp";
+import { onAuthStateChanged } from "firebase/auth";
 
 import {
     DropdownMenu,
@@ -25,19 +26,25 @@ import {
   } from "@/components/ui/dropdown-menu"
   
 
-
+  import { ChangeEvent, useState, useEffect} from "react"
+  import type {User} from "firebase/auth";
 
 export default function MainPage(){
 
-    const user = auth.currentUser;
-
-    React.useEffect(() => {
-        if (user == undefined){
-            return
-        }
-    })
-
+    const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
+
+    useEffect(() => {
+        const unsubscribe_listener = onAuthStateChanged(auth, (user) => {
+            if(user){ //loggedin
+                setUser(user);
+            }else{
+                router.push("/login");
+            }
+        })
+
+        return () => unsubscribe_listener();
+    }, [router])
     
     const [open, setOpen] = React.useState(false);
 
@@ -60,6 +67,10 @@ export default function MainPage(){
     const handleForm = () => {
         console.log("Submitted values")
     }
+
+    if (!user) {
+        return <div>Checking login status...</div>;
+    }    
 
 
 

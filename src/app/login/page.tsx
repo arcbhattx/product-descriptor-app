@@ -16,10 +16,13 @@ import { auth } from "../../../firebase/clientApp";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,onAuthStateChanged } from "firebase/auth"
 import { ChangeEvent, useState } from "react"
 
+import { useRouter } from "next/navigation"
+
 export default function LoginForm(){
 
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
+  const router = useRouter();
 
   const  loginAccount = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,6 +30,7 @@ export default function LoginForm(){
     try{
       await signInWithEmailAndPassword(auth, email, password)
       alert("login Succesful!")
+      router.push("/home");
     }catch(error){
       console.log("error", error)
     }
