@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,10 +12,28 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-import { getAuth } from "firebase/auth"
+import { auth } from "../../../firebase/clientApp"; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,onAuthStateChanged } from "firebase/auth"
+import { useState } from "react"
+import { create } from "domain"
 
 export default function signUp(){
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const  createAccount = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    try{
+      await createUserWithEmailAndPassword(auth,email,password)
+      alert("Created account succesfully!")
+    }catch(error){
+      console.error("Error creating the account!", error)
+    }
+    
+
+  }
 
 
   return (
@@ -26,7 +46,7 @@ export default function signUp(){
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit = {createAccount}>
             <div className="grid gap-6">
 
               <div className="flex flex-col gap-4">
@@ -68,7 +88,9 @@ export default function signUp(){
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder="something@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value) }
                     required
                   />
                 </div>
@@ -80,11 +102,16 @@ export default function signUp(){
                     <Label htmlFor="password">Password</Label>
                   </div>
 
-                  <Input id="password" type="password" required />
+                  <Input 
+                  id="password" 
+                  type="password" 
+                  value = {password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required />
                 </div>
 
 
-                <Button type="submit" className="w-full">
+                <Button type ="submit" className="w-full">
                   Create Account
                 </Button>
               </div>

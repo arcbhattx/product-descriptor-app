@@ -1,4 +1,6 @@
-import { cn } from "@/lib/utils"
+"use client"
+
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -10,10 +12,26 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-import { getAuth } from "firebase/auth"
+import { auth } from "../../../firebase/clientApp";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,onAuthStateChanged } from "firebase/auth"
+import { ChangeEvent, useState } from "react"
 
 export default function LoginForm(){
+
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+
+  const  loginAccount = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    try{
+      await signInWithEmailAndPassword(auth, email, password)
+      alert("login Succesful!")
+    }catch(error){
+      console.log("error", error)
+    }
+
+  }
 
   return (
     <div className="flex flex-col items-center justify-center space-x-4 gap-4 mt-20">
@@ -25,7 +43,7 @@ export default function LoginForm(){
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={loginAccount}>
             <div className="grid gap-6">
 
               <div className="flex flex-col gap-4">
@@ -68,6 +86,8 @@ export default function LoginForm(){
                     id="email"
                     type="email"
                     placeholder="m@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -85,7 +105,12 @@ export default function LoginForm(){
                     </a>
                   </div>
 
-                  <Input id="password" type="password" required />
+                  <Input 
+                  id="password" 
+                  type="password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required />
                 </div>
 
 

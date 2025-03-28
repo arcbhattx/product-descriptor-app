@@ -13,6 +13,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {useRouter} from 'next/navigation';
 
+import D from "@/assets/D.png"
 
 
 
@@ -29,6 +30,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center space-y-4">
+      <Image src={D} alt="D logo" width={200} height={200} />
       <Card className="w-[350px] ">
       <CardHeader className="text-center">
         <CardTitle className="font-mono p-3">Welcome to Descripto</CardTitle>

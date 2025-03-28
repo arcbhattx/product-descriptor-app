@@ -13,6 +13,8 @@ import {z} from "zod"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+import {auth} from "../../../firebase/clientApp";
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -26,6 +28,14 @@ import {
 
 
 export default function MainPage(){
+
+    const user = auth.currentUser;
+
+    React.useEffect(() => {
+        if (user == undefined){
+            return
+        }
+    })
 
     const router = useRouter();
     
