@@ -7,11 +7,29 @@ import {useRouter} from 'next/navigation';
 import {signOut} from "firebase/auth";
 import {auth} from "../../../firebase/clientApp"
 
+import {useState, useEffect} from "react"
+
+import type {User} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 export default function account(){
 
-
+    const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
+
+    useEffect(() => {
+        const unsubscribe_listener = onAuthStateChanged( auth, (user) => {
+            if(user){
+                setUser(user);
+            }else{
+                router.push("/login")
+            }
+        })
+        
+        return () => unsubscribe_listener();
+    }, [router])
+
         
     const [open, setOpen] = React.useState(false);
     const handleNavigation = async () => {
@@ -25,6 +43,10 @@ export default function account(){
         }
         router.push("/");
     }
+
+    if (!user) {
+        return <div>Checking login status...</div>;
+    } 
 
 
     return (

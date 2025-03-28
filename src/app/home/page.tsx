@@ -5,7 +5,6 @@ import {useRouter} from 'next/navigation';
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Form, FormField, FormItem, FormLabel, FormControl,FormDescription, FormMessage} from "@/components/ui/form";
-import {Input} from "@/components/ui/input"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -15,6 +14,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 import {auth} from "../../../firebase/clientApp";
 import { onAuthStateChanged } from "firebase/auth";
+
+import { Input } from "@/components/ui/input"
+
 
 import {
     DropdownMenu,
@@ -75,34 +77,32 @@ export default function MainPage(){
 
 
     return (
-        <div className="flex flex-col space-x-4">
+        <div className="flex flex-col mt-5 items-center justify-center">
 
-        <div className="relative">
+            <Card className="h-16 flex flex-row items-center justify-center px-6 shadow-md rounded-2xl w-[600px] h-[120px]">
+                <CardTitle className="text-base font-semibold">
+                Welcome, {user.email}
+                </CardTitle>
 
-            <div className="absolute top-4 right-4">
-
-            <DropdownMenu>
+                <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Avatar>
-                        <AvatarImage src="" />
-                        <AvatarFallback>AB</AvatarFallback>
-                    </Avatar>                   
+                    <Button className="rounded-full w-10 h-10 p-0 font-bold">
+                        AB
+                    </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                <DropdownMenuItem onClick={navAccout}>
-                    Profile
-                </DropdownMenuItem>
+                <DropdownMenuContent className="w-40 mt-2">
+                    <DropdownMenuItem onClick={navAccout}>
+                        Profile
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
-            </DropdownMenu>
+                </DropdownMenu>
+            </Card>
 
-            </div>
 
-           
-        </div>
 
         
 
-          <div className="flex flex-row items-center justify-center space-x-4 gap-4 mt-20">
+          <div className="flex flex-row items-center justify-center space-x-4 gap-4 mt-5">
             <Card className="w-[500px] h-[500px]"> 
                 <CardHeader>
                     <CardTitle>
@@ -160,6 +160,22 @@ export default function MainPage(){
                     </form>  
                    </Form>
                 </CardContent>
+            </Card>
+
+            <Card  className="w-[500px] h-[500px]"> 
+                <CardHeader>
+                    <CardTitle> Chat </CardTitle>
+                </CardHeader>
+               <CardContent className="flex flex-col gap-5">
+                <Card className="h-[350px]"> 
+
+                </Card>
+
+               <Input type="text" placeholder="type in chat" />
+
+               </CardContent>
+
+
             </Card>
           </div>
       
