@@ -1,6 +1,6 @@
 'use client'
 import * as React from "react"
-import {  LogOut  } from "lucide-react"
+
 import {useRouter} from 'next/navigation';
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
@@ -13,21 +13,16 @@ import {z} from "zod"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-
 import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-  } from "@/components/ui/command"
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
+  
 
-  import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-  } from "@/components/ui/popover"
 
 
 export default function MainPage(){
@@ -48,6 +43,9 @@ export default function MainPage(){
     const handleNavigation = () => {
         router.push("/");
     }
+    const navAccout = () => {
+        router.push("/account");
+    }
 
     const handleForm = () => {
         console.log("Submitted values")
@@ -60,20 +58,25 @@ export default function MainPage(){
 
         <div className="relative">
 
-            <div className="absolute top-4 right-20 ">
-
-            <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-
-            </div>
-
             <div className="absolute top-4 right-4">
-                <Button onClick={handleNavigation}>
-                <LogOut />
-                </Button>
+
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Avatar>
+                        <AvatarImage src="" />
+                        <AvatarFallback>AB</AvatarFallback>
+                    </Avatar>                   
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                <DropdownMenuItem onClick={navAccout}>
+                    Profile
+                </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+
             </div>
+
+           
         </div>
 
         
