@@ -13,8 +13,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { auth } from "../../../firebase/clientApp";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,onAuthStateChanged } from "firebase/auth"
-import { ChangeEvent, useState } from "react"
+import {signInWithEmailAndPassword} from "firebase/auth"
+import {useState } from "react"
 
 import { useRouter } from "next/navigation"
 

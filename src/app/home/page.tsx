@@ -1,16 +1,12 @@
 'use client'
-import * as React from "react"
 
 import {useRouter} from 'next/navigation';
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Form, FormField, FormItem, FormLabel, FormControl,FormDescription, FormMessage} from "@/components/ui/form";
 
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import {z} from "zod"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 import {auth} from "../../../firebase/clientApp";
 import { onAuthStateChanged } from "firebase/auth";
@@ -22,13 +18,11 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
   
 
-  import { ChangeEvent, useState, useEffect} from "react"
+  import { useState, useEffect} from "react"
   import type {User} from "firebase/auth";
 
 export default function MainPage(){
@@ -48,7 +42,6 @@ export default function MainPage(){
         return () => unsubscribe_listener();
     }, [router])
     
-    const [open, setOpen] = React.useState(false);
 
 
     const productForm = useForm({
@@ -59,9 +52,6 @@ export default function MainPage(){
         }
     });
 
-    const handleNavigation = () => {
-        router.push("/");
-    }
     const navAccout = () => {
         router.push("/account");
     }

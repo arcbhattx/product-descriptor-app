@@ -1,5 +1,4 @@
 'use client'
-import * as React from "react"
 
 import {Button} from "@/components/ui/button"
 import {  LogOut  } from "lucide-react"
@@ -13,7 +12,7 @@ import type {User} from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 
 
-export default function account(){
+export default function Account(){
 
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
@@ -31,7 +30,6 @@ export default function account(){
     }, [router])
 
         
-    const [open, setOpen] = React.useState(false);
     const handleNavigation = async () => {
         try {
             await signOut(auth);

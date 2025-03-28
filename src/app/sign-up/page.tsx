@@ -1,6 +1,4 @@
 'use client'
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -13,11 +11,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { auth } from "../../../firebase/clientApp"; 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,onAuthStateChanged } from "firebase/auth"
+import { createUserWithEmailAndPassword} from "firebase/auth"
 import { useState } from "react"
-import { create } from "domain"
 
-export default function signUp(){
+export default function SignUp(){
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
