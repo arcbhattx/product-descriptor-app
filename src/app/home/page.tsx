@@ -2,7 +2,7 @@
 
 import {useRouter} from 'next/navigation';
 import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Form, FormField, FormItem, FormLabel, FormControl,FormDescription, FormMessage} from "@/components/ui/form";
 
 import { useForm } from "react-hook-form"
@@ -30,6 +30,8 @@ export default function MainPage(){
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
 
+    const [data, setData] = useState<any>(null);
+
     useEffect(() => {
         const unsubscribe_listener = onAuthStateChanged(auth, (user) => {
             if(user){ //loggedin
@@ -56,8 +58,38 @@ export default function MainPage(){
         router.push("/account");
     }
 
-    const handleForm = () => {
-        console.log("Submitted values")
+    const handleForm = async (values: any) => {
+        console.log("Submitted values", values)
+
+        try{
+
+            const response = await fetch("/api/getUserInput", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(values),
+            })
+    
+            const data_response = await response.json();
+            console.log("Server response", data_response)
+
+        }catch(error){  
+            alert(error)
+        }
+
+        getData();
+    }
+
+    const getData = async () => {
+        const response = fetch("/api/getUserInput",{
+            method: "GET",
+            headers: {"Content-Type": "application/json"},
+        })
+
+        const data_response = (await response).json();
+        console.log("Server response", data_response);
+
+        setData(data_response);
+
     }
 
     if (!user) {
@@ -157,7 +189,12 @@ export default function MainPage(){
                     <CardTitle> Chat </CardTitle>
                 </CardHeader>
                <CardContent className="flex flex-col gap-5">
+
                 <Card className="h-[350px]"> 
+
+                    <CardContent>
+                            
+                    </CardContent>
 
                 </Card>
 
