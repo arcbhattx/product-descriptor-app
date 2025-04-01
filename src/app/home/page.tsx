@@ -33,9 +33,11 @@ export default function MainPage(){
     const [data, setData] = useState<any>(null);
 
     useEffect(() => {
+        
         const unsubscribe_listener = onAuthStateChanged(auth, (user) => {
             if(user){ //loggedin
                 setUser(user);
+                getData();
             }else{
                 router.push("/login");
             }
@@ -63,7 +65,7 @@ export default function MainPage(){
 
         try{
 
-            const response = await fetch("/api/getUserInput", {
+            const response = await fetch("/api/addUserInput", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(values),
@@ -75,22 +77,24 @@ export default function MainPage(){
         }catch(error){  
             alert(error)
         }
-
-        getData();
     }
 
     const getData = async () => {
-        const response = fetch("/api/getUserInput",{
+        console.log("hi")
+        try {
+          const response = await fetch("/api/getUserInfo", {
             method: "GET",
-            headers: {"Content-Type": "application/json"},
-        })
-
-        const data_response = (await response).json();
-        console.log("Server response", data_response);
-
-        setData(data_response);
-
-    }
+            headers: { "Content-Type": "application/json" },
+          });
+      
+          const data_response = await response.json(); // ✅ must await here
+          console.log("Server response", data_response);
+      
+          setData(data_response); // assuming data_response is what you expect
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
 
     if (!user) {
         return <div>Checking login status...</div>;
@@ -193,6 +197,18 @@ export default function MainPage(){
                 <Card className="h-[350px]"> 
 
                     <CardContent>
+
+                    {data && data.length > 0 ? (
+                    data.map((item: any, index: number) => (
+                        <div key={index} className="text-sm bg-gray-100 rounded p-2">
+                        <div><strong>Name:</strong> {item.product_name}</div>
+                        <div><strong>Tags:</strong> {item.tags}</div>
+                        <div><strong>Description:</strong> {item.description}</div>
+                        </div>
+                    ))
+                    ) : (
+                    <div className="text-gray-400">No product data yet.</div>
+                    )}
                             
                     </CardContent>
 
