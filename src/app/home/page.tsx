@@ -73,14 +73,14 @@ export default function MainPage(){
             const data_response = await response.json();
             console.log("Server response", data_response)
 
-            await getData(); // Fetch the updated data after submission
+            await getProductData(); // Fetch the updated data after submission
 
         }catch(error){  
             alert(error)
         }
     }
 
-    const getData = async () => {
+    const getProductData = async () => {
 
         try {
           const response = await fetch("/api/getUserInfo", {
@@ -88,7 +88,7 @@ export default function MainPage(){
             headers: { "Content-Type": "application/json" },
           });
       
-          const data_response = await response.json(); // ✅ must await here
+          const data_response = await response.json(); //  must await here
           console.log("Server response", data_response);
       
           setData(data_response); // assuming data_response is what you expect
