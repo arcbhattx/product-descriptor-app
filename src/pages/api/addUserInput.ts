@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const client = await clientPromise;
 
         const db = client.db(process.env.MONGODB_DB);
-        const collection = db.collection(process.env.MONGODB_COLLECTION);
+        const collection = db.collection(process.env.MONGODB_COLLECTION!);
 
         const results = await collection.insertOne({
             product_name: data_body.product_name,

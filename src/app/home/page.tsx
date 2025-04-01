@@ -30,14 +30,13 @@ export default function MainPage(){
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
 
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<any[]>([]);
 
     useEffect(() => {
         
         const unsubscribe_listener = onAuthStateChanged(auth, (user) => {
             if(user){ //loggedin
                 setUser(user);
-                getData();
             }else{
                 router.push("/login");
             }
@@ -74,13 +73,15 @@ export default function MainPage(){
             const data_response = await response.json();
             console.log("Server response", data_response)
 
+            await getData(); // Fetch the updated data after submission
+
         }catch(error){  
             alert(error)
         }
     }
 
     const getData = async () => {
-        console.log("hi")
+
         try {
           const response = await fetch("/api/getUserInfo", {
             method: "GET",
@@ -199,8 +200,9 @@ export default function MainPage(){
                     <CardContent>
 
                     {data && data.length > 0 ? (
+
                     data.map((item: any, index: number) => (
-                        <div key={index} className="text-sm bg-gray-100 rounded p-2">
+                        <div key={index}>
                         <div><strong>Name:</strong> {item.product_name}</div>
                         <div><strong>Tags:</strong> {item.tags}</div>
                         <div><strong>Description:</strong> {item.description}</div>
