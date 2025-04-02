@@ -29,6 +29,7 @@ export default function MainPage(){
 
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
+    const [token, setToken] = useState<string | null>(null);
 
     const [data, setData] = useState<any[]>([]);
 
@@ -37,6 +38,10 @@ export default function MainPage(){
         const unsubscribe_listener = onAuthStateChanged(auth, (user) => {
             if(user){ //loggedin
                 setUser(user);
+                (async () => {
+                    const idToken = await user.getIdToken();
+                    setToken(idToken);
+                  })();
             }else{
                 router.push("/login");
             }
@@ -66,7 +71,9 @@ export default function MainPage(){
 
             const response = await fetch("/api/addUserInput", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: {
+                "Authorization": `Bearer ${token}`, 
+                "Content-Type": "application/json"},
                 body: JSON.stringify(values),
             })
     
@@ -85,7 +92,10 @@ export default function MainPage(){
         try {
           const response = await fetch("/api/getUserInfo", {
             method: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              //  "Authorization": `Bearer ${token}`, 
+                "Content-Type": "application/json"
+              },
           });
       
           const data_response = await response.json(); //  must await here
