@@ -185,33 +185,50 @@ export default function MainPage(){
                             <FormItem>
                             <FormLabel>Product Tags</FormLabel>
                             <FormControl>
-                            <div className="flex items-center gap-2">
-                                <Input
-                                    type="text"
-                                    value={tagInput}
-                                    onChange={(e) => setTagInput(e.target.value)}
-                                    onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        e.preventDefault();
-                                        addTag();
-                                    }
-                                    }}
-                                    placeholder="Enter a tag"
-                                />
-                                <Button
-                                    type="button"
-                                    onClick={addTag}
-                                    className="px-3 py-1 border rounded"
-                                >
-                                    Add
-                                </Button>
-                                <Card> 
+                            <div className="flex flex-col gap-4">
 
-                                    {tags}
+                                <div className='flex flex-row gap-2'>
+                                    <Input
+                                        type="text"
+                                        value={tagInput}
+                                        onChange={(e) => setTagInput(e.target.value)}
+                                        onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            addTag();
+                                        }
+                                        }}
+                                        placeholder="Enter a tag"
+                                    />
+                                    <Button
+                                        type="button"
+                                        onClick={addTag}
+                                        className="px-3 py-1 border rounded"
+                                    >
+                                        Add
+                                    </Button>
+                                    
+                               </div>
 
+                               <div>
+                                <Card className="p-4">
+                                    <div className="flex flex-wrap gap-2">
+                                    {tags.map((tag, index) => (
 
+                                        <div
+                                        key={index}
+                                        className="bg-white text-black text-sm px-3 py-1 rounded-md border shadow-sm"
+                                        >
+                                        {tag}
+                                        <Button> x </Button>
+                                        </div>
+                                    ))}
+                                    </div>
                                 </Card>
                                 </div>
+
+                                
+                            </div>
                             </FormControl>
                             <FormDescription>Types in the tags your product is associated with</FormDescription>
                             <FormMessage />
