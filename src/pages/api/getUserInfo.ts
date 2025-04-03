@@ -1,23 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '@/lib/mongodb';
+import { verifyIdtoken } from '@/lib/verifyToken';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
+    const token = req.headers.authorization?.split("Bearer ")[1]
+    if(!token) return res.status(401).json({error: "Unauthorized"})
+    console.log("hi")
+
  
-    const data_body = req.body;
-    console.log(data_body);
+
 
     try{
+        const decode = await verifyIdtoken(token);
+
+        const data_body = req.body;
+        console.log(data_body);
+
         const client = await clientPromise;
 
         const db = client.db(process.env.MONGODB_DB);
         const collection = db.collection(process.env.MONGODB_COLLECTION!);
 
-        const result = await collection.findOne({
-            product_name: "cup",
-            tags: "kitchen",
-            description: "its a cup"
-        })
+        const result = await collection.find({
+            uid: decode.uid,
+        }).toArray();
 
         res.status(200).json([result]);
     }catch (error) {

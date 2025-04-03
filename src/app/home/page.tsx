@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 
 
 import {auth} from "../../../firebase/clientApp";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, ProviderId } from "firebase/auth";
 
 import { Input } from "@/components/ui/input"
 
@@ -70,9 +70,12 @@ export default function MainPage(){
 
     }
 
-    const removeTag = () => {
-
-    }
+    const removeTag = (currTag: string) => {
+        const updatedTags = tags.filter(tag => tag !== currTag);
+        setTags(updatedTags);
+        productForm.setValue("tags", updatedTags);
+      };
+      
 
     const navAccout = () => {
         router.push("/account");
@@ -94,7 +97,7 @@ export default function MainPage(){
             const data_response = await response.json();
             console.log("Server response", data_response)
 
-            //await getProductData(); // Fetch the updated data after submission
+            await getProductData(); // Fetch the updated data after submission
 
         }catch(error){  
             alert(error)
@@ -103,11 +106,12 @@ export default function MainPage(){
 
     const getProductData = async () => {
 
+        console.log("hiii")
         try {
           const response = await fetch("/api/getUserInfo", {
             method: "GET",
             headers: {
-              //  "Authorization": `Bearer ${token}`, 
+                "Authorization": `Bearer ${token}`, 
                 "Content-Type": "application/json"
               },
           });
@@ -154,7 +158,7 @@ export default function MainPage(){
         
 
           <div className="flex flex-row items-center justify-center space-x-4 gap-4 mt-5">
-            <Card className="w-[500px] h-[500px]"> 
+            <Card className="w-[500px] h-[550px]"> 
                 <CardHeader>
                     <CardTitle>
                         Product Input
@@ -205,23 +209,31 @@ export default function MainPage(){
                                         onClick={addTag}
                                         className="px-3 py-1 border rounded"
                                     >
-                                        Add
+                                        +
                                     </Button>
                                     
                                </div>
 
                                <div>
-                                <Card className="p-4">
+                                <Card className="p-4 max-h-20 overflow-y-auto">
                                     <div className="flex flex-wrap gap-2">
                                     {tags.map((tag, index) => (
 
-                                        <div
-                                        key={index}
-                                        className="bg-white text-black text-sm px-3 py-1 rounded-md border shadow-sm"
-                                        >
-                                        {tag}
-                                        <Button> x </Button>
-                                        </div>
+                                    <div
+                                    key={index}
+                                    className="flex items-center gap-2 bg-white text-black text-sm px-3 py-1 rounded-full border shadow-sm"
+                                    >
+                                    <span>{tag}</span>
+                                    <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="icon"
+                                    className="w-5 h-5 p-0 text-xs text-black-500 hover:text-red-700"
+                                    onClick={() => removeTag(tag)}
+                                    >
+                                    ×
+                                    </Button>
+                                    </div>
                                     ))}
                                     </div>
                                 </Card>
@@ -256,7 +268,7 @@ export default function MainPage(){
                 </CardContent>
             </Card>
 
-            <Card  className="w-[500px] h-[500px]"> 
+            <Card  className="w-[500px] h-[550px]"> 
                 <CardHeader>
                     <CardTitle> Chat </CardTitle>
                 </CardHeader>
@@ -264,15 +276,16 @@ export default function MainPage(){
 
                 <Card className="h-[350px]"> 
 
-                    <CardContent>
+                    <CardContent className='p-4 max-h-320 overflow-y-auto'>
 
                     {data && data.length > 0 ? (
 
-                    data.map((item: any, index: number) => (
+
+                    data[0].map((product: any, index: number) => (
                         <div key={index}>
-                        <div><strong>Name:</strong> {item.product_name}</div>
-                        <div><strong>Tags:</strong> {item.tags}</div>
-                        <div><strong>Description:</strong> {item.description}</div>
+                        <div><strong>Name:</strong> {product.product_name}</div>
+                        <div><strong>Tags:</strong> {product.tags.join(' , ')}</div>
+                        <div><strong>Description:</strong> {product.description}</div>
                         </div>
                     ))
                     ) : (
