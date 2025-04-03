@@ -55,10 +55,24 @@ export default function MainPage(){
     const productForm = useForm({
         defaultValues:{
             product_name: "",
-            tags: [],
+            tags:[] as string[],
             description: "",
         }
     });
+
+    const [tags, setTags] = useState<string[]>([]);
+    const [tagInput, setTagInput] = useState("");
+
+    const addTag = () => {
+        const updatedTags = [...tags, tagInput.trim()];
+        setTags(updatedTags);
+        productForm.setValue("tags", updatedTags);
+
+    }
+
+    const removeTag = () => {
+
+    }
 
     const navAccout = () => {
         router.push("/account");
@@ -171,7 +185,33 @@ export default function MainPage(){
                             <FormItem>
                             <FormLabel>Product Tags</FormLabel>
                             <FormControl>
-                                <Input placeholder="Enter tags" {...field} />
+                            <div className="flex items-center gap-2">
+                                <Input
+                                    type="text"
+                                    value={tagInput}
+                                    onChange={(e) => setTagInput(e.target.value)}
+                                    onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        e.preventDefault();
+                                        addTag();
+                                    }
+                                    }}
+                                    placeholder="Enter a tag"
+                                />
+                                <Button
+                                    type="button"
+                                    onClick={addTag}
+                                    className="px-3 py-1 border rounded"
+                                >
+                                    Add
+                                </Button>
+                                <Card> 
+
+                                    {tags}
+
+
+                                </Card>
+                                </div>
                             </FormControl>
                             <FormDescription>Types in the tags your product is associated with</FormDescription>
                             <FormMessage />
