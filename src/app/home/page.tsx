@@ -80,7 +80,7 @@ export default function MainPage(){
             const data_response = await response.json();
             console.log("Server response", data_response)
 
-            await getProductData(); // Fetch the updated data after submission
+            //await getProductData(); // Fetch the updated data after submission
 
         }catch(error){  
             alert(error)
