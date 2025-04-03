@@ -30,6 +30,7 @@ export default function MainPage(){
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
     const [token, setToken] = useState<string | null>(null);
+    const [airesponse, setAIresponse] = useState('');
 
     const [data, setData] = useState<any[]>([]);
 
@@ -82,7 +83,6 @@ export default function MainPage(){
     }
 
     const handleForm = async (values: any) => {
-        console.log("Submitted values", values)
 
         try{
 
@@ -98,16 +98,10 @@ export default function MainPage(){
             console.log("Server response", data_response)
 
             await getProductData(); // Fetch the updated data after submission
+            await processData(values);
 
         }catch(error){  
             alert(error)
-        }
-
-        try{
-            const response = await fetch("/api/aiProcess")
-        }catch(error){
-            console.log(error)
-
         }
     }
 
@@ -130,7 +124,27 @@ export default function MainPage(){
         } catch (error) {
           console.error("Error fetching data:", error);
         }
-      };
+    };
+
+    const processData = async (values: any) => {
+
+        try {
+            const response = await fetch("/api/aiProcess", {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            });
+          
+            const data = await response.json();
+            setAIresponse(data);
+          
+          } catch (error) {
+            console.log(error);
+          }
+    }
 
     if (!user) {
         return <div>Checking login status...</div>;
@@ -283,21 +297,10 @@ export default function MainPage(){
 
                 <Card className="h-[350px]"> 
 
-                    <CardContent className='p-4 max-h-320 overflow-y-auto'>
-
-                    {data && data.length > 0 ? (
-
-
-                    data[0].map((product: any, index: number) => (
-                        <div key={index}>
-                        <div><strong>Name:</strong> {product.product_name}</div>
-                        <div><strong>Tags:</strong> {product.tags.join(' , ')}</div>
-                        <div><strong>Description:</strong> {product.description}</div>
-                        </div>
-                    ))
-                    ) : (
-                    <div className="text-gray-400">No product data yet.</div>
-                    )}
+                    <CardContent >
+                    
+                    {airesponse}
+                   
                             
                     </CardContent>
 
@@ -315,3 +318,22 @@ export default function MainPage(){
       );
       
 }
+
+/*
+
+ {data && data.length > 0 ? (
+
+
+                    data[0].map((product: any, index: number) => (
+                        <div key={index}>
+                        <div><strong>Name:</strong> {product.product_name}</div>
+                        <div><strong>Tags:</strong> {product.tags.join(' , ')}</div>
+                        <div><strong>Description:</strong> {product.description}</div>
+                        </div>
+                    ))
+                    ) : (
+                    <div className="text-gray-400">No product data yet.</div>
+                    )}
+
+
+*/

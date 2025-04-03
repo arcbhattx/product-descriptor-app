@@ -6,7 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const token = req.headers.authorization?.split("Bearer ")[1]
     if(!token) return res.status(401).json({error: "Unauthorized"})
-    console.log("hi")
 
  
 
@@ -15,7 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const decode = await verifyIdtoken(token);
 
         const data_body = req.body;
-        console.log(data_body);
 
         const client = await clientPromise;
 

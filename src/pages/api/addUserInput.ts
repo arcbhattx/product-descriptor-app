@@ -13,7 +13,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const decode = await verifyIdtoken(token);
 
         const data_body = req.body;
-        console.log(data_body);
     
         const client = await clientPromise;
 
@@ -31,7 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json({ message: "Product inserted", results });
     }catch (error) {
         console.error("Error inserting product:", error);
-        console.log(error)
         res.status(500).json({ message: "Something went wrong" });
     }
 }
