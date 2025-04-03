@@ -102,6 +102,13 @@ export default function MainPage(){
         }catch(error){  
             alert(error)
         }
+
+        try{
+            const response = await fetch("/api/aiProcess")
+        }catch(error){
+            console.log(error)
+
+        }
     }
 
     const getProductData = async () => {

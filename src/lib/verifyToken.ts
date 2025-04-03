@@ -1,11 +1,5 @@
 import * as admin from "firebase-admin";
 
-/*
-console.log(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID)
-console.log(process.env.NEXT_PUBLIC_CLIENT_EMAIL)
-console.log(process.env.NEXT_PUBLIC_PRIVATE_KEY)
-*/
-
 if(!admin.apps.length){
     admin.initializeApp({
         credential: admin.credential.cert({
