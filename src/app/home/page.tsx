@@ -21,10 +21,25 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
-  
 
-  import { useState, useEffect} from "react"
-  import type {User} from "firebase/auth";
+
+  import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+ 
+  import {
+    Sidebar,
+    SidebarContent,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarProvider,
+  } from "@/components/ui/sidebar"
+
+
+import { useState, useEffect} from "react"
+import type {User} from "firebase/auth";
 
 export default function MainPage(){
 
@@ -151,31 +166,74 @@ export default function MainPage(){
         return <div>Checking login status...</div>;
     }    
 
+    const items = [
+        {
+          title: "Home",
+          url: "#",
+          icon: Home,
+        },
+        {
+          title: "Inbox",
+          url: "#",
+          icon: Inbox,
+        },
+        {
+          title: "Calendar",
+          url: "#",
+          icon: Calendar,
+        },
+        {
+          title: "Search",
+          url: "#",
+          icon: Search,
+        },
+        {
+          title: "Settings",
+          url: "#",
+          icon: Settings,
+        },
+      ]
+
     return (
 
-        <div className="flex flex-row h-screen">
+        <div className="flex flex-row">
 
+                    <SidebarProvider>
+                        <Sidebar>
+                            <SidebarContent>
+                                <SidebarGroup>
+                                <SidebarGroupLabel>Application</SidebarGroupLabel>
+                                <SidebarGroupContent>
+                                    <SidebarMenu>
+                                    {items.map((item) => (
+                                        <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuButton asChild>
+                                            <a href={item.url}>
+                                            <item.icon />
+                                            <span>{item.title}</span>
+                                            </a>
+                                        </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    ))}
+                                    </SidebarMenu>
+                                </SidebarGroupContent>
+                                </SidebarGroup>
+                            </SidebarContent>
+                        </Sidebar>
+                    </SidebarProvider>
 
-                <Card className="top-0 left-0 h-screen w-[200px]">
+                    
+                <div className="flex flex-col">
 
-
-                    <CardHeader> 
-                        <CardTitle className="text-center"> Products </CardTitle>
-                    </CardHeader>
-
-                </Card>
-
-                <div className="flex flex-col flex-1">
-
-                    <Card className="h-16 flex flex-row items-center justify-center px-6">
+                <Card className="flex flex-row items-center justify-center px-6 w-screen h-10">
                         
-                        <CardTitle className="text-base font-semibold">
-                        Welcome, {user.email}
+                        <CardTitle className="text-bold font-semibold">
+                            Welcome to Descriptor
                         </CardTitle>
 
                         <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button className="rounded-full w-10 h-10 p-0 font-bold">
+                            <Button className="rounded-full w-7 h-7 p-0 font-bold">
                                 AB
                             </Button>
                         </DropdownMenuTrigger>
@@ -187,12 +245,9 @@ export default function MainPage(){
                         </DropdownMenu>
                     </Card>
 
+                    <div className="grid grid-cols-2 h-[700px]">
 
-
-
-
-                    <div className="flex flex-row gap-2">
-                    <Card className="w-full h-full">
+                    <Card className="">
                         <CardHeader>
                             <CardTitle>
                                 Product Input
@@ -299,10 +354,12 @@ export default function MainPage(){
                                 <Button type="submit">Submit</Button>  
                             </form>  
                         </Form>
+
                         </CardContent>
                     </Card>
 
-                    <Card className="w-full h-full">
+
+                    <Card className="">
                         <CardHeader>
                             <CardTitle> Chat </CardTitle>
                         </CardHeader>
