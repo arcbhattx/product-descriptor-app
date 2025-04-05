@@ -2,14 +2,15 @@
 
 import {useRouter} from 'next/navigation';
 import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Form, FormField, FormItem, FormLabel, FormControl,FormDescription, FormMessage} from "@/components/ui/form";
 
 import { useForm } from "react-hook-form"
 
 
 import {auth} from "../../../firebase/clientApp";
-import { onAuthStateChanged, ProviderId } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 import { Input } from "@/components/ui/input"
 
