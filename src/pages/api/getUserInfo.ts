@@ -7,9 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const token = req.headers.authorization?.split("Bearer ")[1]
     if(!token) return res.status(401).json({error: "Unauthorized"})
 
- 
-
-
     try{
         const decode = await verifyIdtoken(token);
 
@@ -25,9 +22,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }).toArray();
 
         res.status(200).json([result]);
+
     }catch (error) {
         console.error("Error inserting product:", error);
-        console.log(error)
         res.status(500).json({ message: "Something went wrong" });
     }
 }

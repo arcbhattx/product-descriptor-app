@@ -18,8 +18,12 @@ import { Input } from "@/components/ui/input"
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
+    DropdownMenuItem,
   } from "@/components/ui/dropdown-menu"
 
 
@@ -50,6 +54,8 @@ export default function MainPage(){
 
     const [data, setData] = useState<any[]>([]);
 
+    const [position, setPosition] = useState("bottom")
+
     useEffect(() => {
         
         const unsubscribe_listener = onAuthStateChanged(auth, (user) => {
@@ -74,6 +80,7 @@ export default function MainPage(){
             product_name: "",
             tags:[] as string[],
             description: "",
+            voice_tone: ""
         }
     });
 
