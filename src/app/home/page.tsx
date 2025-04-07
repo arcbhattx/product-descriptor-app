@@ -358,6 +358,44 @@ export default function MainPage(){
                                     </FormItem>
                                 )}
                                 />
+
+                                <FormField
+                                    control={productForm.control}
+                                    name="voice_tone"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                        <FormLabel>Writing Tone</FormLabel>
+                                        <FormControl>
+                                           <DropdownMenu>
+                                           <DropdownMenuTrigger asChild>
+                                                <Button variant="outline">Writing Tone</Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent className="w-56">
+                                                <DropdownMenuLabel>Tones</DropdownMenuLabel>
+
+                                                <DropdownMenuSeparator />
+
+                                                <DropdownMenuRadioGroup
+                                                value={field.value}
+                                                onValueChange={field.onChange}
+                                                >
+
+                                                <DropdownMenuRadioItem value="Formal">Formal</DropdownMenuRadioItem>
+                                                <DropdownMenuRadioItem value="Friendly">Friendly</DropdownMenuRadioItem>
+                                                <DropdownMenuRadioItem value="Casual">Casual</DropdownMenuRadioItem>
+                                                <DropdownMenuRadioItem value="Proffesional">Proffesional</DropdownMenuRadioItem>
+                                                <DropdownMenuRadioItem value="Engaging">Engaging</DropdownMenuRadioItem>
+                                                <DropdownMenuRadioItem value="Pursuasive">Pursuasive</DropdownMenuRadioItem>
+
+                                                </DropdownMenuRadioGroup>
+                                            </DropdownMenuContent>
+                                           </DropdownMenu>
+                                        </FormControl>
+                                        <FormDescription>Select how you want to sound</FormDescription>
+                                        <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
                                 <Button type="submit">Submit</Button>  
                             </form>  
                         </Form>

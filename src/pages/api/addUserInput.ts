@@ -24,6 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             product_name: data_body.product_name,
             tags: data_body.tags,
             description: data_body.description,
+            voice_tone: data_body.voice_tone,
             createdAt: new Date()
         })
 
