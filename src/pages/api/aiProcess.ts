@@ -20,7 +20,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
 
         //get req body.
         const data_body = req.body;
-        const { product_name, tags, description } = data_body;
+        const { product_name, tags, description, voice_tone } = data_body;
 
         //database client
         const database_client = await clientPromise;
@@ -43,7 +43,8 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
         const inputText = `Write me a product description for the following product in 2 lines:\n
         Product Name: ${product_name}
         Tags: ${tags.join(", ")}
-        Description: ${description}`;
+        Description: ${description}
+        Voice Tone: ${voice_tone}`;
 
         const response = await client.responses.create({
         model: "gpt-4o",

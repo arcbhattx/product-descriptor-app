@@ -202,35 +202,7 @@ export default function MainPage(){
       ]
 
     return (
-
-        <div className="flex flex-row">
-
-                    <SidebarProvider>
-                        <Sidebar>
-                            <SidebarContent>
-                                <SidebarGroup>
-                                <SidebarGroupLabel>Application</SidebarGroupLabel>
-                                <SidebarGroupContent>
-                                    <SidebarMenu>
-                                    {items.map((item) => (
-                                        <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton asChild>
-                                            <a href={item.url}>
-                                            <item.icon />
-                                            <span>{item.title}</span>
-                                            </a>
-                                        </SidebarMenuButton>
-                                        </SidebarMenuItem>
-                                    ))}
-                                    </SidebarMenu>
-                                </SidebarGroupContent>
-                                </SidebarGroup>
-                            </SidebarContent>
-                        </Sidebar>
-                    </SidebarProvider>
-
-                    
-                <div className="flex flex-col">
+            <div>
 
                 <Card className="flex flex-row items-center justify-center px-6 w-screen h-10">
                         
@@ -252,7 +224,7 @@ export default function MainPage(){
                         </DropdownMenu>
                     </Card>
 
-                    <div className="grid grid-cols-2 h-[700px]">
+                    <div className="grid grid-cols-2 h-screen w-screen">
 
                     <Card className="">
                         <CardHeader>
@@ -429,9 +401,7 @@ export default function MainPage(){
                     </Card>
                     </div>
 
-                </div>
-
-        </div>
+            </div>
         
       );
       
