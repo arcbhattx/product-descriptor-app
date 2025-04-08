@@ -202,230 +202,232 @@ export default function MainPage(){
       ]
 
     return (
-        <div className='flex flex-row'>
+        <div className='flex flex-row gap-20 min-w-[200vh]'>
 
-            <SidebarProvider>
-            <Sidebar>
-                  <SidebarContent>
-                    <SidebarGroup>
-                      <SidebarGroupLabel>Application</SidebarGroupLabel>
-                      <SidebarGroupContent>
-                        <SidebarMenu>
-                          {items.map((item) => (
-                            <SidebarMenuItem key={item.title}>
-                              <SidebarMenuButton asChild>
-                                <a href={item.url}>
-                                  <item.icon />
-                                  <span>{item.title}</span>
-                                </a>
-                              </SidebarMenuButton>
-                            </SidebarMenuItem>
-                          ))}
-                        </SidebarMenu>
-                      </SidebarGroupContent>
-                    </SidebarGroup>
-                  </SidebarContent>
-                </Sidebar>
-                </SidebarProvider>
-
-                <Card className="flex flex-row items-center justify-center px-6 w-screen h-10">
-                        
-                        <CardTitle className="text-bold font-semibold">
-                            Welcome to Descriptor
-                        </CardTitle>
-
-                        <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button className="rounded-full w-7 h-7 p-0 font-bold">
-                                AB
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-40 mt-2">
-                            <DropdownMenuItem onClick={navAccout}>
-                                Profile
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                        </DropdownMenu>
-                    </Card>
-
-                <div className="grid grid-cols-2 ">
-
-                    <Card className="">
-                        <CardHeader>
-                            <CardTitle>
-                                Product Input
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                        <Form {...productForm}>
-                                <form onSubmit={productForm.handleSubmit(handleForm)}> 
-                                <FormField
-                                    control={productForm.control}
-                                    name="product_name"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                        <FormLabel>Product Name</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Enter product name" {...field} />
-                                        </FormControl>
-                                        <FormDescription>What is your Product Called?</FormDescription>
-                                        <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                control={productForm.control}
-                                name="tags"
-                                render={({ field }) => (
-                                    <FormItem>
-                                    <FormLabel>Product Tags</FormLabel>
-                                    <FormControl>
-                                    <div className="flex flex-col gap-4">
-
-                                        <div className='flex flex-row gap-2'>
-                                            <Input
-                                                type="text"
-                                                value={tagInput}
-                                                onChange={(e) => setTagInput(e.target.value)}
-                                                onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
-                                                    e.preventDefault();
-                                                    addTag();
-                                                }
-                                                }}
-                                                placeholder="Enter a tag"
-                                            />
-                                            <Button
-                                                type="button"
-                                                onClick={addTag}
-                                                className="px-3 py-1 border rounded"
-                                            >
-                                                +
-                                            </Button>
-                                            
-                                    </div>
-
-                                    <div>
-                                        <Card className="p-4 max-h-20 overflow-y-auto">
-                                            <div className="flex flex-wrap gap-2">
-                                            {tags.map((tag, index) => (
-
-                                            <div
-                                            key={index}
-                                            className="flex items-center gap-2 bg-white text-black text-sm px-3 py-1 rounded-full border shadow-sm"
-                                            >
-                                            <span>{tag}</span>
-                                            <Button
-                                            type="button"
-                                            variant="ghost"
-                                            size="icon"
-                                            className="w-5 h-5 p-0 text-xs text-black-500 hover:text-red-700"
-                                            onClick={() => removeTag(tag)}
-                                            >
-                                            ×
-                                            </Button>
-                                            </div>
-                                            ))}
-                                            </div>
-                                        </Card>
-                                        </div>
-
-                                        
-                                    </div>
-                                    </FormControl>
-                                    <FormDescription>Types in the tags your product is associated with</FormDescription>
-                                    <FormMessage />
-                                    </FormItem>
-                                )}
-                                />
-
-                                <FormField
-                                control={productForm.control}
-                                name="description"
-                                render={({ field }) => (
-                                    <FormItem>
-                                    <FormLabel>Product Description</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Enter product description" {...field} />
-                                    </FormControl>
-                                    <FormDescription>Briefly describe your product</FormDescription>
-                                    <FormMessage />
-                                    </FormItem>
-                                )}
-                                />
-
-                                <FormField
-                                    control={productForm.control}
-                                    name="voice_tone"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                        <FormLabel>Writing Tone</FormLabel>
-                                        <FormControl>
-                                           <DropdownMenu>
-                                           <DropdownMenuTrigger asChild>
-                                                <Button variant="outline">Writing Tone</Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent className="w-56">
-                                                <DropdownMenuLabel>Tones</DropdownMenuLabel>
-
-                                                <DropdownMenuSeparator />
-
-                                                <DropdownMenuRadioGroup
-                                                value={field.value}
-                                                onValueChange={field.onChange}
-                                                >
-
-                                                <DropdownMenuRadioItem value="Formal">Formal</DropdownMenuRadioItem>
-                                                <DropdownMenuRadioItem value="Friendly">Friendly</DropdownMenuRadioItem>
-                                                <DropdownMenuRadioItem value="Casual">Casual</DropdownMenuRadioItem>
-                                                <DropdownMenuRadioItem value="Proffesional">Proffesional</DropdownMenuRadioItem>
-                                                <DropdownMenuRadioItem value="Engaging">Engaging</DropdownMenuRadioItem>
-                                                <DropdownMenuRadioItem value="Pursuasive">Pursuasive</DropdownMenuRadioItem>
-
-                                                </DropdownMenuRadioGroup>
-                                            </DropdownMenuContent>
-                                           </DropdownMenu>
-                                        </FormControl>
-                                        <FormDescription>Select how you want to sound</FormDescription>
-                                        <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <Button type="submit">Submit</Button>  
-                            </form>  
-                        </Form>
-
-                        </CardContent>
-                    </Card>
+                    <SidebarProvider>
+                        <Sidebar>
+                        <SidebarContent>
+                            <SidebarGroup>
+                            <SidebarGroupLabel>Application</SidebarGroupLabel>
+                            <SidebarGroupContent>
+                                <SidebarMenu>
+                                {items.map((item) => (
+                                    <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton asChild>
+                                        <a href={item.url}>
+                                        <item.icon />
+                                        <span>{item.title}</span>
+                                        </a>
+                                    </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                ))}
+                                </SidebarMenu>
+                            </SidebarGroupContent>
+                            </SidebarGroup>
+                        </SidebarContent>
+                        </Sidebar>
+                    </SidebarProvider>
 
 
-                    <Card className="">
-                        <CardHeader>
-                            <CardTitle> Chat </CardTitle>
-                        </CardHeader>
-                    <CardContent className="flex flex-col gap-5">
+                <div className="flex flex-col">
+                    <Card className="flex flex-row items-center justify-center px-6 w-screen h-10">
+                                
+                                <CardTitle className="text-bold font-semibold">
+                                    Welcome to Descriptor
+                                </CardTitle>
 
-                        <Card className="h-[350px]"> 
-
-                            <CardContent >
-                            
-                            {airesponse}
-                        
-                                    
-                            </CardContent>
-
+                                <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button className="rounded-full w-7 h-7 p-0 font-bold">
+                                        AB
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-40 mt-2">
+                                    <DropdownMenuItem onClick={navAccout}>
+                                        Profile
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                                </DropdownMenu>
                         </Card>
 
-                    <Input type="text" placeholder="type in chat" />
+                    <div className="grid grid-cols-2 ">
 
-                    </CardContent>
+                        <Card className="">
+                            <CardHeader>
+                                <CardTitle>
+                                    Product Input
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                            <Form {...productForm}>
+                                    <form onSubmit={productForm.handleSubmit(handleForm)}> 
+                                    <FormField
+                                        control={productForm.control}
+                                        name="product_name"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                            <FormLabel>Product Name</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="Enter product name" {...field} />
+                                            </FormControl>
+                                            <FormDescription>What is your Product Called?</FormDescription>
+                                            <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                    control={productForm.control}
+                                    name="tags"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                        <FormLabel>Product Tags</FormLabel>
+                                        <FormControl>
+                                        <div className="flex flex-col gap-4">
+
+                                            <div className='flex flex-row gap-2'>
+                                                <Input
+                                                    type="text"
+                                                    value={tagInput}
+                                                    onChange={(e) => setTagInput(e.target.value)}
+                                                    onKeyDown={(e) => {
+                                                    if (e.key === "Enter") {
+                                                        e.preventDefault();
+                                                        addTag();
+                                                    }
+                                                    }}
+                                                    placeholder="Enter a tag"
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    onClick={addTag}
+                                                    className="px-3 py-1 border rounded"
+                                                >
+                                                    +
+                                                </Button>
+                                                
+                                        </div>
+
+                                        <div>
+                                            <Card className="p-4 max-h-20 overflow-y-auto">
+                                                <div className="flex flex-wrap gap-2">
+                                                {tags.map((tag, index) => (
+
+                                                <div
+                                                key={index}
+                                                className="flex items-center gap-2 bg-white text-black text-sm px-3 py-1 rounded-full border shadow-sm"
+                                                >
+                                                <span>{tag}</span>
+                                                <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="icon"
+                                                className="w-5 h-5 p-0 text-xs text-black-500 hover:text-red-700"
+                                                onClick={() => removeTag(tag)}
+                                                >
+                                                ×
+                                                </Button>
+                                                </div>
+                                                ))}
+                                                </div>
+                                            </Card>
+                                            </div>
+
+                                            
+                                        </div>
+                                        </FormControl>
+                                        <FormDescription>Types in the tags your product is associated with</FormDescription>
+                                        <FormMessage />
+                                        </FormItem>
+                                    )}
+                                    />
+
+                                    <FormField
+                                    control={productForm.control}
+                                    name="description"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                        <FormLabel>Product Description</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter product description" {...field} />
+                                        </FormControl>
+                                        <FormDescription>Briefly describe your product</FormDescription>
+                                        <FormMessage />
+                                        </FormItem>
+                                    )}
+                                    />
+
+                                    <FormField
+                                        control={productForm.control}
+                                        name="voice_tone"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                            <FormLabel>Writing Tone</FormLabel>
+                                            <FormControl>
+                                            <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                    <Button variant="outline">Writing Tone</Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent className="w-56">
+                                                    <DropdownMenuLabel>Tones</DropdownMenuLabel>
+
+                                                    <DropdownMenuSeparator />
+
+                                                    <DropdownMenuRadioGroup
+                                                    value={field.value}
+                                                    onValueChange={field.onChange}
+                                                    >
+
+                                                    <DropdownMenuRadioItem value="Formal">Formal</DropdownMenuRadioItem>
+                                                    <DropdownMenuRadioItem value="Friendly">Friendly</DropdownMenuRadioItem>
+                                                    <DropdownMenuRadioItem value="Casual">Casual</DropdownMenuRadioItem>
+                                                    <DropdownMenuRadioItem value="Proffesional">Proffesional</DropdownMenuRadioItem>
+                                                    <DropdownMenuRadioItem value="Engaging">Engaging</DropdownMenuRadioItem>
+                                                    <DropdownMenuRadioItem value="Pursuasive">Pursuasive</DropdownMenuRadioItem>
+
+                                                    </DropdownMenuRadioGroup>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                            </FormControl>
+                                            <FormDescription>Select how you want to sound</FormDescription>
+                                            <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <Button type="submit">Submit</Button>  
+                                </form>  
+                            </Form>
+
+                            </CardContent>
+                        </Card>
 
 
-                    </Card>
+                        <Card className="">
+                            <CardHeader>
+                                <CardTitle> Chat </CardTitle>
+                            </CardHeader>
+                        <CardContent className="flex flex-col gap-5">
+
+                            <Card className="h-[350px]"> 
+
+                                <CardContent >
+                                
+                                {airesponse}
+                            
+                                        
+                                </CardContent>
+
+                            </Card>
+
+                        <Input type="text" placeholder="type in chat" />
+
+                        </CardContent>
+
+
+                        </Card>
+                    </div>       
                 </div>
-
-        </div>
+    </div>
         
       );
       
