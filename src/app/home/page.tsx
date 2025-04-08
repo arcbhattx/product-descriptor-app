@@ -29,17 +29,14 @@ import {
 
   import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
  
+  import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+  import { AppSidebar } from "@/components/app-sidebar"
+
   import {
-    Sidebar,
-    SidebarContent,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarProvider,
-  } from "@/components/ui/sidebar"
+    ResizableHandle,
+    ResizablePanel,
+    ResizablePanelGroup,
+  } from "@/components/ui/resizable"
 
 
 import { useState, useEffect} from "react"
@@ -202,35 +199,19 @@ export default function MainPage(){
       ]
 
     return (
-        <div className='flex flex-row gap-20 min-w-[200vh]'>
+        
+    
+    <div className="flex flex-row gap-2">
 
-                    <SidebarProvider>
-                        <Sidebar>
-                        <SidebarContent>
-                            <SidebarGroup>
-                            <SidebarGroupLabel>Application</SidebarGroupLabel>
-                            <SidebarGroupContent>
-                                <SidebarMenu>
-                                {items.map((item) => (
-                                    <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
-                                        <a href={item.url}>
-                                        <item.icon />
-                                        <span>{item.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                ))}
-                                </SidebarMenu>
-                            </SidebarGroupContent>
-                            </SidebarGroup>
-                        </SidebarContent>
-                        </Sidebar>
-                    </SidebarProvider>
+        <SidebarProvider className="basis-20">
+            
+            <AppSidebar/>
+        </SidebarProvider>
 
+        <div className="basis-500 flex flex-col gap-4 mt-5">
+            
+            <Card className="flex flex-row items-center justify-between px-6 w-full h-7">
 
-                <div className="flex flex-col">
-                    <Card className="flex flex-row items-center justify-center px-6 w-screen h-10">
                                 
                                 <CardTitle className="text-bold font-semibold">
                                     Welcome to Descriptor
@@ -250,16 +231,17 @@ export default function MainPage(){
                                 </DropdownMenu>
                         </Card>
 
-                    <div className="grid grid-cols-2 ">
+                    <div className="grid grid-cols-2 gap-2">
 
-                        <Card className="">
+
+                        <Card className="w-[500px]">
                             <CardHeader>
                                 <CardTitle>
                                     Product Input
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                            <Form {...productForm}>
+                            <Form {...productForm}  >
                                     <form onSubmit={productForm.handleSubmit(handleForm)}> 
                                     <FormField
                                         control={productForm.control}
@@ -402,7 +384,7 @@ export default function MainPage(){
                         </Card>
 
 
-                        <Card className="">
+                        <Card className="w-[500px]">
                             <CardHeader>
                                 <CardTitle> Chat </CardTitle>
                             </CardHeader>
@@ -426,9 +408,8 @@ export default function MainPage(){
 
                         </Card>
                     </div>       
-                </div>
-    </div>
-        
+            </div>
+      </div>
       );
       
 }
