@@ -203,12 +203,12 @@ export default function MainPage(){
     
     <div className="flex flex-row gap-2">
 
-        <SidebarProvider className="basis-20">
-            
-            <AppSidebar/>
-        </SidebarProvider>
+        <Card className='max-h-screen w-[200px]'> 
 
-        <div className="basis-500 flex flex-col gap-4 mt-5">
+
+        </Card>
+
+        <div className="flex flex-col gap-4 mt-2">
             
             <Card className="flex flex-row items-center justify-between px-6 w-full h-7">
 
@@ -229,18 +229,15 @@ export default function MainPage(){
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                                 </DropdownMenu>
-                        </Card>
+            </Card>
 
-                    <div className="grid grid-cols-2 gap-2">
-
-
-                        <Card className="w-[500px]">
+            <Card>
                             <CardHeader>
                                 <CardTitle>
                                     Product Input
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className='flex flex-row gap-10 max-h-screen'>
                             <Form {...productForm}  >
                                     <form onSubmit={productForm.handleSubmit(handleForm)}> 
                                     <FormField
@@ -380,17 +377,9 @@ export default function MainPage(){
                                 </form>  
                             </Form>
 
-                            </CardContent>
-                        </Card>
+                           
 
-
-                        <Card className="w-[500px]">
-                            <CardHeader>
-                                <CardTitle> Chat </CardTitle>
-                            </CardHeader>
-                        <CardContent className="flex flex-col gap-5">
-
-                            <Card className="h-[350px]"> 
+                            <Card className="h-[350px] w-[500px]"> 
 
                                 <CardContent >
                                 
@@ -401,16 +390,12 @@ export default function MainPage(){
 
                             </Card>
 
-                        <Input type="text" placeholder="type in chat" />
-
-                        </CardContent>
-
-
-                        </Card>
-                    </div>       
-            </div>
-      </div>
-      );
+                    </CardContent>
+            </Card>
+      
+        </div>
+    </div>
+);
       
 }
 
