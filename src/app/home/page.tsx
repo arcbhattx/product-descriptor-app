@@ -202,7 +202,31 @@ export default function MainPage(){
       ]
 
     return (
-            <div>
+        <div className='flex flex-row'>
+
+            <SidebarProvider>
+            <Sidebar>
+                  <SidebarContent>
+                    <SidebarGroup>
+                      <SidebarGroupLabel>Application</SidebarGroupLabel>
+                      <SidebarGroupContent>
+                        <SidebarMenu>
+                          {items.map((item) => (
+                            <SidebarMenuItem key={item.title}>
+                              <SidebarMenuButton asChild>
+                                <a href={item.url}>
+                                  <item.icon />
+                                  <span>{item.title}</span>
+                                </a>
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                          ))}
+                        </SidebarMenu>
+                      </SidebarGroupContent>
+                    </SidebarGroup>
+                  </SidebarContent>
+                </Sidebar>
+                </SidebarProvider>
 
                 <Card className="flex flex-row items-center justify-center px-6 w-screen h-10">
                         
@@ -224,7 +248,7 @@ export default function MainPage(){
                         </DropdownMenu>
                     </Card>
 
-                    <div className="grid grid-cols-2 h-screen w-screen">
+                <div className="grid grid-cols-2 ">
 
                     <Card className="">
                         <CardHeader>
@@ -234,7 +258,7 @@ export default function MainPage(){
                         </CardHeader>
                         <CardContent>
                         <Form {...productForm}>
-                                <form onSubmit={productForm.handleSubmit(handleForm)} className="w-2/3 space-y-6"> 
+                                <form onSubmit={productForm.handleSubmit(handleForm)}> 
                                 <FormField
                                     control={productForm.control}
                                     name="product_name"
@@ -399,9 +423,9 @@ export default function MainPage(){
 
 
                     </Card>
-                    </div>
+                </div>
 
-            </div>
+        </div>
         
       );
       
