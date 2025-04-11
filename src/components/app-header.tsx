@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 
 import {useRouter} from "next/navigation"
 
-import type {User} from "firebase/auth";
+import {onAuthStateChanged, type User} from "firebase/auth";
+import {auth} from "../../firebase/clientApp";
 
 export function AppHeader(){
 
@@ -15,6 +16,25 @@ export function AppHeader(){
     const router = useRouter();
 
     const [token, setToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        
+      const unsubscribe_listener = onAuthStateChanged(auth, (user) => {
+          if(user){ //loggedin
+              setUser(user);
+              (async () => {
+                  const idToken = await user.getIdToken();
+                  setToken(idToken);
+                })();
+          }else{
+              router.push("/login");
+          }
+      })
+
+      return () => unsubscribe_listener();
+
+    } ,[router])
+
 
     const navAccout = () => {
         router.push("/account");

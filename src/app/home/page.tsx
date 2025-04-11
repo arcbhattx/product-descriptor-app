@@ -169,10 +169,9 @@ export default function MainPage(){
         <main className="flex-1 p-6 overflow-y-auto">
 
           {/* Header */}
-
           <AppHeader/>
           
-  
+        
           {/* Product Input Section */}
           <Card className="w-full">
             <CardHeader>
@@ -321,6 +320,7 @@ export default function MainPage(){
               </Card>
             </CardContent>
           </Card>
+          
         </main>
       </div>
       
