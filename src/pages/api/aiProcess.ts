@@ -40,7 +40,13 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
 
 
         //Open AI processing
-        const inputText = `Write me a product description for the following product in 2 lines:\n
+        const inputText = `Act as a world-class marketing copywriter. 
+        Describe [PRODUCT NAME] in a way that immediately captures attention, builds desire, and drives action. 
+        Highlight the key features, benefits, and emotional value it provides. Use persuasive, 
+        benefit-driven language that resonates with [TARGET AUDIENCE], and include a powerful 
+        call to action. Make the tone energetic, trustworthy, and customer-centric. Write in a 
+        style similar to Apple product pages or high-converting DTC brands like Nike or Glossier. 
+        Keep it clear, concise, and impactful.:\n
         Product Name: ${product_name}
         Tags: ${tags.join(", ")}
         Description: ${description}

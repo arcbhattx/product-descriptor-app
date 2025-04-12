@@ -37,13 +37,16 @@ import { AppHeader } from "@/components/app-header"
 export default function MainPage(){
 
     const [user, setUser] = useState<User | null>(null);
+
     const router = useRouter();
+
     const [token, setToken] = useState<string | null>(null);
     const [airesponse, setAIresponse] = useState('');
 
     const [data, setData] = useState<any[]>([]);
 
-    const [position, setPosition] = useState("bottom")
+    const [tags, setTags] = useState<string[]>([]);
+    const [tagInput, setTagInput] = useState("");
 
     useEffect(() => {
         
@@ -63,19 +66,20 @@ export default function MainPage(){
     }, [router])
     
 
-
+    //Input Form Values
     const productForm = useForm({
         defaultValues:{
             product_name: "",
             tags:[] as string[],
             description: "",
-            voice_tone: ""
+            voice_tone: "",
+            target_audience: ""
         }
     });
 
-    const [tags, setTags] = useState<string[]>([]);
-    const [tagInput, setTagInput] = useState("");
+ 
 
+    //Add tags to array
     const addTag = () => {
         const updatedTags = [...tags, tagInput.trim()];
         setTags(updatedTags);
@@ -83,6 +87,7 @@ export default function MainPage(){
 
     }
 
+    //Remove a tag if its canceled from the input form.
     const removeTag = (currTag: string) => {
         const updatedTags = tags.filter(tag => tag !== currTag);
         setTags(updatedTags);
@@ -91,6 +96,7 @@ export default function MainPage(){
       
 
 
+    //sends a request to the backend to add user input.
     const handleForm = async (values: any) => {
 
         try{
@@ -107,6 +113,7 @@ export default function MainPage(){
             console.log("Server response", data_response)
 
             await getProductData(); // Fetch the updated data after submission
+
             await processData(values);
 
         }catch(error){  
@@ -114,9 +121,9 @@ export default function MainPage(){
         }
     }
 
+    //Gets the entered user data.
     const getProductData = async () => {
 
-        console.log("hiii")
         try {
           const response = await fetch("/api/getUserInfo", {
             method: "GET",
@@ -128,12 +135,16 @@ export default function MainPage(){
       
           const data_response = await response.json(); //  must await here
           console.log("Server response", data_response);
+
       
           setData(data_response); // assuming data_response is what you expect
+
         } catch (error) {
           console.error("Error fetching data:", error);
         }
     };
+
+    //This handles the creation of the description, AI process
 
     const processData = async (values: any) => {
 
@@ -154,6 +165,8 @@ export default function MainPage(){
             console.log(error);
           }
     }
+
+    //Just a loading thing.
 
     if (!user) {
         return <div>Checking login status...</div>;
@@ -300,6 +313,21 @@ export default function MainPage(){
                           </DropdownMenu>
                         </FormControl>
                         <FormDescription>Select how you want to sound</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={productForm.control}
+                    name="target_audience"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Target Audience</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Input Target Audience" {...field} />
+                        </FormControl>
+                        <FormDescription>Briefly describe your audience</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
