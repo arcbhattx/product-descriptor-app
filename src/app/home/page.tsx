@@ -166,14 +166,14 @@ export default function MainPage(){
         <AppSidebar/>
   
         {/* Main Content */}
-        <main className="flex-1 p-6 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto">
 
           {/* Header */}
           <AppHeader/>
           
         
           {/* Product Input Section */}
-          <Card className="w-full">
+          <Card className="w-full bg-color-black">
             <CardHeader>
               <CardTitle>Product Input</CardTitle>
             </CardHeader>
@@ -226,7 +226,7 @@ export default function MainPage(){
                               </Button>
                             </div>
   
-                            <Card className="p-3 max-h-24 overflow-y-auto">
+                            <Card className="p-3 max-h-24 overflow-y-auto ">
                               <div className="flex flex-wrap gap-2">
                                 {tags.map((tag, index) => (
                                   <div
@@ -310,7 +310,7 @@ export default function MainPage(){
               </Form>
   
               {/* AI Output */}
-              <Card className="w-full max-w-md min-h-[350px]">
+              <Card className="w-full max-w-md min-h-[350px] bg-color-black">
                 <CardHeader>
                   <CardTitle>AI Output</CardTitle>
                 </CardHeader>

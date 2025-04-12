@@ -43,7 +43,7 @@ export function AppHeader(){
     return(
         <>
 
-        <Card className="flex flex-row items-center justify-between px-6 py-4 shadow-md mb-6">
+        <Card className="flex flex-row items-center justify-between px-6 py-4 shadow-md bg-color-black">
             <CardTitle className="text-lg font-semibold">
               Welcome to Descriptor
             </CardTitle>
