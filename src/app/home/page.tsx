@@ -207,7 +207,6 @@ export default function MainPage(){
                         <FormControl>
                           <Input placeholder="Enter product name" {...field} />
                         </FormControl>
-                        <FormDescription>What is your product called?</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -262,7 +261,6 @@ export default function MainPage(){
                             </Card>
                           </div>
                         </FormControl>
-                        <FormDescription>Tags associated with your product</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -277,7 +275,6 @@ export default function MainPage(){
                         <FormControl>
                           <Input placeholder="Enter product description" {...field} />
                         </FormControl>
-                        <FormDescription>Briefly describe your product</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -312,7 +309,6 @@ export default function MainPage(){
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </FormControl>
-                        <FormDescription>Select how you want to sound</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -327,7 +323,6 @@ export default function MainPage(){
                         <FormControl>
                           <Input placeholder="Input Target Audience" {...field} />
                         </FormControl>
-                        <FormDescription>Briefly describe your audience</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
