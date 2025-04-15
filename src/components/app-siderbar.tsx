@@ -7,16 +7,36 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { useRouter} from "next/navigation";
 
+import clientPromise from "@/lib/mongodb";
+
+import {Card, CardDescription, CardTitle} from "@/components/ui/card";
+
 
 export function AppSidebar(){
+
 
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<String | null>(null);
 
     const router = useRouter();
  
-    const [products, setProducts] = useState<String[]>(["Product1", "Product2", "Product 3"]);
+    const [products, setProducts] = useState<String[]>([]);
     const [isOpen, setIsOpen] = useState(false);
+
+    const[isModalOpen, setIsModalOpen] = useState(false);
+
+    const[currentProudctIndex, setCurrentProductIndex] = useState(0);
+
+    
+
+    type Product = {
+        //_id: string;
+        //uid: string;
+        product_name: string;
+        generated_description: string;
+    };
+
+    const [productData, setProductData] = useState<Product[]>([]);
 
     useEffect( () => {
 
@@ -26,8 +46,11 @@ export function AppSidebar(){
                 (async () => {
                     const idToken = await user.getIdToken();
                     setToken(idToken);
-                  })();
+                    await getUserProducts(idToken);
                 
+                  })(); 
+
+                  
             }else{
             router.push("/login");
         }
@@ -36,11 +59,30 @@ export function AppSidebar(){
         return () => unsubscribe_listener();
     }, [router])
 
-    const getUserProduct =() => {
+    const  getUserProducts = async (token: string) => { //pass in the auth token
 
         try{
+ 
+            const response = await fetch("/api/getUserInfo", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`, 
+                    "Content-Type": "application/json"
+                },
+            });
+
+            const json = await response.json(); // type: any
+            const data_response: Product[][] = json;
+            setProductData(data_response[0]);
+            setProductData(data_response.flat()); // ✅ still Product[]
+
+            console.log(data_response)
+
+
 
         }catch(error){
+
+            console.log("unable to fetch products", error);
 
         }
 
@@ -48,6 +90,15 @@ export function AppSidebar(){
 
     const toggleDropDown = () =>{
         setIsOpen(!isOpen); 
+    }
+
+    const toggleModal = () => {
+
+        setIsModalOpen(!isModalOpen);
+    }
+
+    const currentIndex = (index: number) => {
+        setCurrentProductIndex(index)
     }
 
     return(
@@ -65,13 +116,39 @@ export function AppSidebar(){
 
                             <div className="flex flex-col">
 
-                                {products.map((product, index) => (
-                                    <Button key={index} className="bg-black text-white"> {product}</Button>
-                                ))}
+                            {productData.map((product,index) => (
+                            <Button onClick={ () =>{toggleModal(), currentIndex(index)}} key={product.product_name} className="bg-black text-white">
+                                {product.product_name}
+                            </Button>
+                            ))}
+
+                                {isModalOpen && (
+                                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
+                                    <Card className="w-[400px] p-6">
+                                    <CardTitle className="flex flex-row items-center justify-between px-6 py-4 shadow-md bg-color-black">
+                                        {productData[currentProudctIndex].product_name}
+                                        <Button onClick={toggleModal}> 
+                                            x
+                                        </Button>
+                                    </CardTitle>
+                                    <CardDescription>
+                                        
+                                        Description:
+
+                                        {productData[currentProudctIndex].generated_description}
+
+                        
+                                    </CardDescription>
+                                    </Card>
+                                </div>
+                                )}
+
 
 
                             </div>
-                           
+
+                                
+  
                         )}
                             
 
