@@ -37,6 +37,7 @@ export function AppSidebar(){
     };
 
     const [productData, setProductData] = useState<Product[]>([]);
+    
 
     useEffect( () => {
 
@@ -101,6 +102,13 @@ export function AppSidebar(){
         setCurrentProductIndex(index)
     }
 
+
+    /*
+    const navigateDashboard = () => {
+        router.push("/home");
+    }
+    */
+
     return(
 
         <>
@@ -110,7 +118,12 @@ export function AppSidebar(){
 
                     <nav className="space-y-4">
                         <Button variant="ghost" className="w-full justify-start text-white">Dashboard</Button>
-                        <Button onClick={toggleDropDown} variant="ghost" className="w-full justify-start text-white">Products</Button>
+                        <Button onClick={toggleDropDown} variant="ghost" className="w-full justify-between text-white flex items-center">
+                        <span>Products</span>
+                        <div className="bg-white-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
+                            {productData.length}
+                        </div>
+                        </Button>
 
                         {isOpen && (
 

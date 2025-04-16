@@ -148,6 +148,22 @@ export default function MainPage(){
 
     const processData = async (values: any) => {
 
+      try{
+
+        const response = await fetch("/api/getUserInfo",{
+          method:"GET",
+          headers:{
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+        })
+
+      }catch(error){
+
+        console.log("Error");
+
+      }
+
         try {
             const response = await fetch("/api/aiProcess", {
               method: "POST",
