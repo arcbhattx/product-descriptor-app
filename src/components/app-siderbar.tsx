@@ -102,13 +102,6 @@ export function AppSidebar(){
         setCurrentProductIndex(index)
     }
 
-
-    /*
-    const navigateDashboard = () => {
-        router.push("/home");
-    }
-    */
-
     return(
 
         <>
